@@ -1,0 +1,7 @@
+{
+  "name": "Smart Flora Search",
+  "description": "Hệ thống quản lý và tìm kiếm hoa thông minh bằng hình ảnh dành cho chủ shop hoa. Tự động nhận diện và báo giá nhanh chóng.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
