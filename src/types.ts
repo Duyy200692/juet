@@ -76,3 +76,35 @@ export interface AtelierData {
 }
 
 export type ViewMode = 'duo' | 'solo';
+
+export interface CommissionOrder {
+  orderCode: string;
+  senderName: string;
+  senderPhone: string;
+  recipientName?: string;
+  recipientAddress?: string;
+  deliveryDate?: string;
+  flowerName: string;
+  flowerIndex?: string;
+  cardMessage?: string;
+  customNote?: string;
+  createdAt: string;
+}
+
+export interface WorkshopBooking {
+  bookingCode: string;
+  workshopTitle: string;
+  customerName: string;
+  customerPhone: string;
+  preferredDate?: string;
+  note?: string;
+  createdAt: string;
+}
+
+export interface NotificationSettings {
+  telegramBotToken: string;
+  telegramChatId: string;
+  googleSheetWebhookUrl: string;
+  enableTelegram: boolean;
+  enableGoogleSheet: boolean;
+}

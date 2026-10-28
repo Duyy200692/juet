@@ -6,9 +6,15 @@ interface FooterProps {
   theme: 'light' | 'dark';
   onOpenCommission: () => void;
   onOpenWorkshops: () => void;
+  onOpenAtelierHub?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ theme, onOpenCommission, onOpenWorkshops }) => {
+export const Footer: React.FC<FooterProps> = ({ 
+  theme, 
+  onOpenCommission, 
+  onOpenWorkshops,
+  onOpenAtelierHub 
+}) => {
   const isDark = theme === 'dark';
 
   return (
@@ -90,6 +96,14 @@ export const Footer: React.FC<FooterProps> = ({ theme, onOpenCommission, onOpenW
             >
               → Đăng Ký Workshop Doanh Nghiệp & Cá Nhân
             </button>
+            {onOpenAtelierHub && (
+              <button
+                onClick={onOpenAtelierHub}
+                className="block hover:underline underline-offset-4 text-amber-600 dark:text-amber-400 font-bold pt-1"
+              >
+                ⚙️ Quản Lý Đơn & Báo Chuông Telegram
+              </button>
+            )}
           </div>
           <div className="p-3.5 rounded-2xl border border-current/10 bg-black/5 dark:bg-white/5 mt-4">
             <p className="text-[11px] font-editorial italic opacity-85">
@@ -101,7 +115,17 @@ export const Footer: React.FC<FooterProps> = ({ theme, onOpenCommission, onOpenW
 
       <div className="max-w-6xl mx-auto mt-10 pt-4 border-t border-current/10 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono opacity-60 gap-2">
         <p>© 2026 JU et Saigon · Encyclopædia Botanica Digital. All rights reserved.</p>
-        <p>Bespoke Haute Couture Atelier · Ho Chi Minh City</p>
+        <div className="flex items-center gap-3">
+          <p>Bespoke Haute Couture Atelier · Ho Chi Minh City</p>
+          {onOpenAtelierHub && (
+            <button
+              onClick={onOpenAtelierHub}
+              className="hover:underline text-amber-600 dark:text-amber-400 font-bold opacity-80 hover:opacity-100 transition-opacity"
+            >
+              · Atelier Hub
+            </button>
+          )}
+        </div>
       </div>
     </footer>
   );

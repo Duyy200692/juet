@@ -11,6 +11,7 @@ import { MoodboardModal } from './components/MoodboardModal';
 import { CommissionModal } from './components/CommissionModal';
 import { WorkshopModal } from './components/WorkshopModal';
 import { IndexDrawer } from './components/IndexDrawer';
+import { AtelierOrdersModal } from './components/AtelierOrdersModal';
 import { Footer } from './components/Footer';
 import { Sparkles, Calendar } from 'lucide-react';
 
@@ -41,6 +42,7 @@ export const App: React.FC = () => {
   const [commissionFlower, setCommissionFlower] = useState<Specimen | null>(null);
   const [isWorkshopOpen, setIsWorkshopOpen] = useState(false);
   const [isIndexOpen, setIsIndexOpen] = useState(false);
+  const [isAtelierHubOpen, setIsAtelierHubOpen] = useState(false);
 
   // Sync theme with html root element
   useEffect(() => {
@@ -60,6 +62,18 @@ export const App: React.FC = () => {
       localStorage.setItem('ju_wishlist', JSON.stringify(wishlistIds));
     } catch {}
   }, [wishlistIds]);
+
+  // Hotkey for Atelier staff: Ctrl/Cmd + Shift + A
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        setIsAtelierHubOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -167,6 +181,7 @@ export const App: React.FC = () => {
         theme={theme}
         onOpenCommission={handleOpenGeneralCommission}
         onOpenWorkshops={() => setIsWorkshopOpen(true)}
+        onOpenAtelierHub={() => setIsAtelierHubOpen(true)}
       />
 
       {/* 4. Floating Mobile Dock on iPhone */}
@@ -231,6 +246,13 @@ export const App: React.FC = () => {
         flowers={initialFlowers}
         onSelectFlower={(flower) => setSelectedFlower(flower)}
         onClose={() => setIsIndexOpen(false)}
+      />
+
+      {/* 6. Atelier Operations Hub (Staff / Owner) */}
+      <AtelierOrdersModal
+        isOpen={isAtelierHubOpen}
+        theme={theme}
+        onClose={() => setIsAtelierHubOpen(false)}
       />
     </div>
   );
